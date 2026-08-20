@@ -97,8 +97,12 @@
   .hero-photo{
     position:absolute;inset:0;
     background:
-      radial-gradient(140% 100% at 20% 0%, rgba(255,255,255,0.5), transparent 55%),
-      linear-gradient(150deg,#EDE7DA 0%,#E0D8C7 40%,#CBC0AA 75%,#B9AD94 100%);
+      radial-gradient(140% 100% at 20% 0%, rgba(250,248,244,0.55), transparent 55%),
+      linear-gradient(150deg, rgba(250,248,244,0.35), rgba(250,248,244,0.08) 60%),
+      url('wall-photo.jpg');
+    background-size:auto, auto, cover;
+    background-position:center, center, center;
+    background-repeat:no-repeat, no-repeat, no-repeat;
     transform:scale(1.08);
   }
   .hero-photo-mask{
@@ -139,10 +143,11 @@
   .signature-head h2{font-size:clamp(34px,5vw,64px);margin-top:20px;}
 
   .light-panel{
-    position:relative;width:100%;aspect-ratio:21/9;overflow:hidden;cursor:pointer;
+    position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;
     background:linear-gradient(150deg,#4b4640,#302c27 55%,#211e1a);
+    touch-action:none;
   }
-  @media (max-width:760px){.light-panel{aspect-ratio:4/5;}}
+  @media (max-width:760px){.light-panel{aspect-ratio:3/4;}}
   .wall-rough,.wall-finished{position:absolute;inset:0;}
   .wall-rough{
     background:
@@ -164,6 +169,11 @@
   .signature-caption{
     display:flex;justify-content:space-between;margin-top:26px;
     font-size:12px;letter-spacing:0.04em;color:var(--charcoal-soft);
+    text-transform:uppercase;
+  }
+  .signature-location{
+    text-align:center;margin-top:14px;
+    font-size:11px;letter-spacing:0.1em;color:var(--teal-deep);
     text-transform:uppercase;
   }
 
@@ -253,8 +263,8 @@
       <div class="light-mask" id="lightMask"><div class="wall-finished"></div></div>
     </div>
     <div class="signature-caption reveal">
-      <span>Unfinished, under raking light</span>
-      <span>MJS finish — no ripples, anywhere</span>
+      <span>Illustrative — unfinished texture</span>
+      <span>Real MJS finish — Tinonee</span>
     </div>
   </div>
 </section>
@@ -315,7 +325,9 @@
     mask.style.setProperty('--ly', ly + '%');
   }
   panel.addEventListener('mousemove', e => setLight(e.clientX, e.clientY));
+  panel.addEventListener('touchstart', e => { const t = e.touches[0]; setLight(t.clientX, t.clientY); idle = false; }, {passive:true});
   panel.addEventListener('touchmove', e => { const t = e.touches[0]; setLight(t.clientX, t.clientY); }, {passive:true});
+  panel.addEventListener('touchend', () => idle = true);
   let t = 0, idle = true;
   panel.addEventListener('mouseenter', () => idle = false);
   panel.addEventListener('mouseleave', () => idle = true);
