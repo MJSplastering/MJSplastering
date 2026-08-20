@@ -228,6 +228,78 @@
   .contact-detail a, .contact-detail span{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--charcoal);}
   .contact-detail a{transition:color .3s var(--ease);}
   .contact-detail a:hover{color:var(--teal-deep);}
+
+  /* ---------- ENQUIRY (floating-text step flow) ---------- */
+  .enquiry{padding:40px 0 200px;}
+  .enquiry .wrap{max-width:640px;}
+  .eq-recap{
+    min-height:20px;text-align:center;margin-bottom:10px;
+    font-size:11.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--charcoal-soft);
+  }
+  .eq-recap span{color:var(--teal-deep);}
+  .eq-recap span:not(:last-child)::after{content:'·';margin:0 10px;color:var(--stone);}
+
+  .eq-frame{position:relative;min-height:300px;}
+  .eq-step{
+    position:absolute;top:0;left:0;right:0;
+    text-align:center;
+    opacity:0;transform:translateY(16px);pointer-events:none;
+    transition:opacity .55s var(--ease), transform .55s var(--ease);
+  }
+  .eq-step.active{opacity:1;transform:translateY(0);pointer-events:auto;position:relative;}
+
+  .eq-step h3{
+    font-family:'Cormorant Garamond',serif;font-weight:400;font-style:italic;
+    font-size:clamp(17px,1.8vw,20px);margin-bottom:40px;line-height:1.4;
+    color:var(--charcoal-soft);opacity:0.72;letter-spacing:0.01em;
+  }
+
+  .eq-options{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .eq-option{
+    font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--charcoal-soft);
+    background:none;border:none;padding:12px 10px;cursor:pointer;
+    transition:color .35s var(--ease);position:relative;
+  }
+  .eq-option::after{
+    content:'';position:absolute;left:50%;bottom:6px;width:0;height:1px;background:var(--teal-deep);
+    transform:translateX(-50%);transition:width .35s var(--ease);
+  }
+  .eq-option:hover{color:var(--charcoal);}
+  .eq-option:hover::after{width:36px;}
+  .eq-option.selected{color:var(--teal-deep);}
+  .eq-option.selected::after{width:36px;}
+
+  .eq-fields{display:flex;flex-direction:column;gap:26px;max-width:360px;margin:0 auto 40px;}
+  .eq-fields input{
+    width:100%;border:none;border-bottom:1px solid var(--stone);background:transparent;
+    text-align:center;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--charcoal);
+    padding:10px 4px;transition:border-color .35s var(--ease);
+  }
+  .eq-fields input::placeholder{color:var(--charcoal-soft);opacity:0.7;}
+  .eq-fields input:focus{outline:none;border-color:var(--teal-deep);}
+
+  .eq-submit{
+    font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;
+    padding-bottom:6px;border-bottom:1px solid var(--charcoal);background:none;cursor:pointer;
+    color:var(--charcoal);transition:opacity .4s var(--ease), border-color .4s var(--ease), color .4s var(--ease);
+  }
+  .eq-submit:hover{color:var(--teal-deep);border-color:var(--teal-deep);}
+  .eq-submit:disabled{opacity:0.35;cursor:not-allowed;}
+
+  .eq-back{
+    display:block;margin:36px auto 0;
+    font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-soft);
+    background:none;border:none;cursor:pointer;transition:color .3s var(--ease);
+  }
+  .eq-back:hover{color:var(--teal-deep);}
+
+  .eq-done h3{margin-bottom:14px;}
+  .eq-done p{font-family:'DM Sans',sans-serif;font-size:15.5px;color:var(--charcoal-soft);}
+
+  .eq-divider{
+    text-align:center;margin:0 0 60px;font-size:11px;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--charcoal-soft);
+  }
 </style>
 
 </head>
@@ -235,23 +307,76 @@
 
 <header>
   <nav class="wrap">
-    <a href="concept-a-architectural-finish.html" class="brand">MJS</a>
+    <a href="index.html" class="brand">MJS</a>
     <div class="nav-links">
-      <a href="concept-a-architectural-finish.html#about">About</a>
-      <a href="concept-a-architectural-finish.html#work">Work</a>
-      <a href="concept-a-services.html">Services</a>
-      <a href="concept-a-contact.html">Contact</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#work">Work</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
     </div>
     <button class="nav-toggle" aria-label="Menu"><span></span><span></span></button>
   </nav>
 </header>
 
-<section class="contact-page">
+<section class="contact-page" style="padding-bottom:80px;">
   <div class="wrap reveal in">
     <span class="num" style="display:block;font-size:12px;letter-spacing:0.14em;color:var(--teal-deep);text-transform:uppercase;margin-bottom:24px;">Get In Touch</span>
     <h1>Let's talk<br>about your walls.</h1>
     <p class="lede">Tell us a little about the job and we'll get back to you with a straightforward, written quote.</p>
+  </div>
+</section>
 
+<section class="enquiry">
+  <div class="wrap">
+    <div class="eq-recap" id="eqRecap"></div>
+
+    <div class="eq-frame">
+
+      <div class="eq-step active" data-step="1">
+        <h3>What kind of job is this?</h3>
+        <div class="eq-options">
+          <button class="eq-option" data-group="type" data-value="Water Damage">Water Damage</button>
+          <button class="eq-option" data-group="type" data-value="Reno &amp; Extensions">Reno &amp; Extensions</button>
+          <button class="eq-option" data-group="type" data-value="New Build">New Build</button>
+          <button class="eq-option" data-group="type" data-value="Ornamental Cornicing">Ornamental Cornicing</button>
+          <button class="eq-option" data-group="type" data-value="Crack Repairs">Crack Repairs</button>
+          <button class="eq-option" data-group="type" data-value="Patch Work">Patch Work</button>
+        </div>
+      </div>
+
+      <div class="eq-step" data-step="2">
+        <h3>How soon are you looking to start?</h3>
+        <div class="eq-options">
+          <button class="eq-option" data-group="timing" data-value="As soon as possible">As soon as possible</button>
+          <button class="eq-option" data-group="timing" data-value="Within a month">Within a month</button>
+          <button class="eq-option" data-group="timing" data-value="Just exploring">Just exploring</button>
+        </div>
+        <button class="eq-back" data-back="1">← Back</button>
+      </div>
+
+      <div class="eq-step" data-step="3">
+        <h3>And your details</h3>
+        <div class="eq-fields">
+          <input type="text" placeholder="Name" id="eqName">
+          <input type="tel" placeholder="Phone" id="eqPhone">
+          <input type="email" placeholder="Email (optional)" id="eqEmail">
+        </div>
+        <button class="eq-submit" id="eqSubmit" disabled>Send Enquiry</button>
+        <button class="eq-back" data-back="2">← Back</button>
+      </div>
+
+      <div class="eq-step eq-done" data-step="done">
+        <h3>Thank you.</h3>
+        <p>We'll be in touch shortly with a written quote.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="contact-page" style="padding-top:0;">
+  <div class="wrap reveal in">
+    <div class="eq-divider">Or, reach us directly</div>
     <div class="contact-detail-row">
       <div class="contact-detail">
         <span class="num">Call</span>
@@ -283,6 +408,59 @@
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   revealEls.forEach(el => io.observe(el));
+
+  // ---------- Enquiry step flow ----------
+  const eqAnswers = { type: null, timing: null };
+  const eqSteps = document.querySelectorAll('.eq-step');
+  const eqRecap = document.getElementById('eqRecap');
+
+  function goToStep(step) {
+    eqSteps.forEach(s => s.classList.toggle('active', s.dataset.step === String(step)));
+  }
+
+  function renderRecap() {
+    const parts = [];
+    if (eqAnswers.type) parts.push(`<span>${eqAnswers.type}</span>`);
+    if (eqAnswers.timing) parts.push(`<span>${eqAnswers.timing}</span>`);
+    eqRecap.innerHTML = parts.join('');
+  }
+
+  document.querySelectorAll('.eq-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group;
+      const value = btn.dataset.value;
+      eqAnswers[group] = value;
+
+      // mark selection within this group
+      document.querySelectorAll(`.eq-option[data-group="${group}"]`).forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      renderRecap();
+
+      setTimeout(() => {
+        if (group === 'type') goToStep(2);
+        if (group === 'timing') goToStep(3);
+      }, 280);
+    });
+  });
+
+  document.querySelectorAll('.eq-back').forEach(btn => {
+    btn.addEventListener('click', () => goToStep(btn.dataset.back));
+  });
+
+  const eqName = document.getElementById('eqName');
+  const eqPhone = document.getElementById('eqPhone');
+  const eqSubmit = document.getElementById('eqSubmit');
+
+  function checkReady() {
+    eqSubmit.disabled = !(eqName.value.trim() && eqPhone.value.trim());
+  }
+  eqName.addEventListener('input', checkReady);
+  eqPhone.addEventListener('input', checkReady);
+
+  eqSubmit.addEventListener('click', () => {
+    if (eqSubmit.disabled) return;
+    goToStep('done');
+  });
 </script>
 </body>
 </html>
