@@ -150,10 +150,12 @@
   @media (max-width:760px){.light-panel{aspect-ratio:3/4;}}
   .wall-rough,.wall-finished{position:absolute;inset:0;}
   .wall-rough{
-    background:
-      repeating-linear-gradient(35deg, rgba(0,0,0,0.16) 0 2px, transparent 2px 7px),
-      repeating-linear-gradient(-15deg, rgba(0,0,0,0.1) 0 1px, transparent 1px 6px),
-      linear-gradient(160deg,#5c564c,#39352f);
+    background-image:
+      linear-gradient(160deg, rgba(20,18,16,0.62), rgba(20,18,16,0.72)),
+      url('rough-photo.jpg');
+    background-size:cover, cover;
+    background-position:center, center;
+    background-repeat:no-repeat, no-repeat;
   }
   .light-mask{
     position:absolute;inset:0;
@@ -220,6 +222,7 @@
       <a href="#about">About</a>
       <a href="#work">Work</a>
       <a href="services.html">Services</a>
+      <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
     </div>
     <button class="nav-toggle" aria-label="Menu"><span></span><span></span></button>
@@ -263,7 +266,7 @@
       <div class="light-mask" id="lightMask"><div class="wall-finished"></div></div>
     </div>
     <div class="signature-caption reveal">
-      <span>Illustrative — unfinished texture</span>
+      <span>Rough surface — not MJS work</span>
       <span>Real MJS finish — Tinonee</span>
     </div>
   </div>
