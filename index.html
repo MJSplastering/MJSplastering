@@ -156,7 +156,10 @@
     mask-image:radial-gradient(circle 320px at var(--lx,50%) var(--ly,50%), #000 40%, transparent 74%);
   }
   .light-mask .wall-finished{
-    background:radial-gradient(circle 320px at var(--lx,50%) var(--ly,50%), rgba(255,255,255,0.92) 0%, rgba(140,172,176,0.16) 55%, rgba(255,255,255,0) 72%), linear-gradient(160deg,#EAE4D6,#D3CAB6);
+    background-image:radial-gradient(circle 320px at var(--lx,50%) var(--ly,50%), rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.08) 55%, rgba(255,255,255,0) 72%), url('wall-photo.jpg');
+    background-size:auto, cover;
+    background-position:center, center;
+    background-repeat:no-repeat, no-repeat;
   }
   .signature-caption{
     display:flex;justify-content:space-between;margin-top:26px;
