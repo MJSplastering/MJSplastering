@@ -188,48 +188,22 @@
     font-family:'DM Sans',sans-serif;margin-bottom:34px;text-transform:uppercase;
   }
 
-  /* ---------- SIGNATURE: LIGHT REVEAL ---------- */
-  .signature{padding-top:0;}
-  .signature-head{text-align:center;margin-bottom:90px;}
-  .signature-head span{font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal-deep);}
-  .signature-head h2{font-size:clamp(34px,5vw,64px);margin-top:20px;}
-
-  .light-panel{
-    position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;
-    background:linear-gradient(150deg,#4b4640,#302c27 55%,#211e1a);
-    touch-action:none;
-    --spot-radius:320px;
+  /* ---------- WORK: BEFORE & AFTER ---------- */
+  .ba-work-item{margin-bottom:130px;position:relative;padding-top:50px;}
+  .ba-work-item::before{
+    content:'';position:absolute;top:0;left:0;width:34px;height:1px;background:var(--teal);
   }
-  @media (max-width:760px){.light-panel{aspect-ratio:3/4; --spot-radius:150px;}}
-  @media (max-width:420px){.light-panel{--spot-radius:120px;}}
-  .wall-rough,.wall-finished{position:absolute;inset:0;}
-  .wall-rough{
-    background-image: url('rough-photo.jpg');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+  .ba-work-photos{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+  .ba-work-photo{position:relative;aspect-ratio:4/5;overflow:hidden;}
+  .ba-work-photo .ph{
+    position:absolute;inset:0;background-size:cover;background-position:center;
   }
-  .light-mask{
-    position:absolute;inset:0;
-    -webkit-mask-image:radial-gradient(circle var(--spot-radius,320px) at var(--lx,50%) var(--ly,50%), #000 40%, transparent 74%);
-    mask-image:radial-gradient(circle var(--spot-radius,320px) at var(--lx,50%) var(--ly,50%), #000 40%, transparent 74%);
+  .ba-tag{
+    position:absolute;top:16px;left:16px;padding:7px 14px;border-radius:30px;
+    font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+    background:rgba(250,248,244,0.9);color:var(--charcoal);
   }
-  .light-mask .wall-finished{
-    background-image:radial-gradient(circle 320px at var(--lx,50%) var(--ly,50%), rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.08) 55%, rgba(255,255,255,0) 72%), url('wall-photo.jpg');
-    background-size:auto, cover;
-    background-position:center, center;
-    background-repeat:no-repeat, no-repeat;
-  }
-  .signature-caption{
-    display:flex;justify-content:space-between;margin-top:26px;
-    font-size:12px;letter-spacing:0.04em;color:var(--charcoal-soft);
-    text-transform:uppercase;
-  }
-  .signature-location{
-    text-align:center;margin-top:14px;
-    font-size:11px;letter-spacing:0.1em;color:var(--teal-deep);
-    text-transform:uppercase;
-  }
+  @media (max-width:600px){.ba-work-photos{grid-template-columns:1fr;gap:6px;} .ba-work-photo{aspect-ratio:16/10;}}
 
   /* ---------- WORK (few, large) ---------- */
   .work-item{margin-bottom:130px;position:relative;padding-top:50px;}
@@ -374,46 +348,64 @@
   </div>
 </section>
 
-<section class="signature">
-  <div class="wrap">
-    <div class="signature-head reveal">
-      <span>The Test</span>
-      <h2>Move the light.</h2>
-    </div>
-    <div class="light-panel reveal" id="lightPanel">
-      <div class="wall-rough"></div>
-      <div class="light-mask" id="lightMask"><div class="wall-finished"></div></div>
-    </div>
-    <div class="signature-caption reveal">
-      <span>Rough surface — not MJS work</span>
-      <span>Real MJS finish — Old Bar</span>
-    </div>
-  </div>
-</section>
-
 <section id="work">
   <div class="wrap">
-    <div class="work-item reveal">
-      <div class="work-photo wd"></div>
+    <div class="section-head reveal" style="text-align:center;max-width:600px;margin:0 auto 90px;">
+      <span class="num">Before &amp; After</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(28px,3.6vw,40px);">Real jobs, real results</h2>
+    </div>
+
+    <div class="ba-work-item reveal">
+      <div class="ba-work-photos">
+        <div class="ba-work-photo">
+          <div class="ph" style="background-image:url('work-waterdamage-before.jpg');"></div>
+          <span class="ba-tag">In Progress</span>
+        </div>
+        <div class="ba-work-photo">
+          <div class="ph" style="background-image:url('work-waterdamage.jpg');"></div>
+          <span class="ba-tag">Finished</span>
+        </div>
+      </div>
       <div class="work-caption">
         <h3>Kitchen Water Damage Repair</h3>
         <span>Ceiling Patch &amp; Finish</span>
       </div>
     </div>
-    <div class="work-item reveal">
-      <div class="work-photo bw"></div>
+
+    <div class="ba-work-item reveal">
+      <div class="ba-work-photos">
+        <div class="ba-work-photo">
+          <div class="ph" style="background-image:url('work-brickwall-before.jpg');"></div>
+          <span class="ba-tag">Before</span>
+        </div>
+        <div class="ba-work-photo">
+          <div class="ph" style="background-image:url('work-brickwall.jpg');"></div>
+          <span class="ba-tag">After</span>
+        </div>
+      </div>
       <div class="work-caption">
         <h3>Internal Brick Wall</h3>
         <span>Plastered &amp; Finished</span>
       </div>
     </div>
-    <div class="work-item reveal">
-      <div class="work-photo cl"></div>
+
+    <div class="ba-work-item reveal">
+      <div class="ba-work-photos">
+        <div class="ba-work-photo">
+          <div class="ph" style="background-image:url('work-ceiling-before.jpg');"></div>
+          <span class="ba-tag">Before</span>
+        </div>
+        <div class="ba-work-photo">
+          <div class="ph" style="background-image:url('work-ceiling.jpg');"></div>
+          <span class="ba-tag">After</span>
+        </div>
+      </div>
       <div class="work-caption">
         <h3>Garage Ceiling</h3>
         <span>Full Re-Plaster</span>
       </div>
     </div>
+
     <div class="work-item reveal">
       <div class="work-photo nb"></div>
       <div class="work-caption">
@@ -544,7 +536,7 @@
       cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
       requestAnimationFrame(cursorLoop);
     })();
-    document.querySelectorAll('a, button, .light-panel, .eq-option, input, textarea, select').forEach(el => {
+    document.querySelectorAll('a, button, .eq-option, input, textarea, select').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
@@ -564,32 +556,6 @@
     }
     document.querySelectorAll('.nav-links a, .hero-cta, .eq-submit, .contact-links a').forEach(el => magnetize(el, 9));
   }
-
-
-  const panel = document.getElementById('lightPanel');
-  const mask = document.getElementById('lightMask');
-  function setLight(x,y){
-    const rect = panel.getBoundingClientRect();
-    const lx = ((x - rect.left) / rect.width) * 100;
-    const ly = ((y - rect.top) / rect.height) * 100;
-    mask.style.setProperty('--lx', lx + '%');
-    mask.style.setProperty('--ly', ly + '%');
-  }
-  panel.addEventListener('mousemove', e => setLight(e.clientX, e.clientY));
-  panel.addEventListener('touchstart', e => { const t = e.touches[0]; setLight(t.clientX, t.clientY); idle = false; }, {passive:true});
-  panel.addEventListener('touchmove', e => { const t = e.touches[0]; setLight(t.clientX, t.clientY); }, {passive:true});
-  panel.addEventListener('touchend', () => idle = true);
-  let t = 0, idle = true;
-  panel.addEventListener('mouseenter', () => idle = false);
-  panel.addEventListener('mouseleave', () => idle = true);
-  (function idleLoop(){
-    if(idle){
-      t += 0.005;
-      mask.style.setProperty('--lx', (50 + Math.sin(t)*34) + '%');
-      mask.style.setProperty('--ly', (50 + Math.cos(t*0.8)*24) + '%');
-    }
-    requestAnimationFrame(idleLoop);
-  })();
 </script>
 </body>
 </html>
