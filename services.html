@@ -10,9 +10,10 @@
     --warm-white:#F2EEE4;
     --stone:#DCD3C3;
     --charcoal:#201E1C;
+    --charcoal-title:#3C3934;
     --charcoal-soft:#6B665D;
-    --teal:#8CACB0;
-    --teal-deep:#527176;
+    --teal:#4D888E;
+    --teal-deep:#3C6A6E;
     --ease: cubic-bezier(.19,1,.22,1);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -22,7 +23,8 @@
     -webkit-font-smoothing:antialiased;
     line-height:1.6;
   }
-  h1,h2,.display{font-family:'Cormorant Garamond', Georgia, serif; font-weight:400; color:var(--charcoal);}
+  h2,.display{font-family:'Cormorant Garamond', Georgia, serif; font-weight:400; color:var(--charcoal);}
+  h1{font-family:'Cormorant Garamond', Georgia, serif; font-weight:400; color:var(--charcoal-title);}
   a{color:inherit;text-decoration:none;}
   img{display:block;max-width:100%;}
 
@@ -34,14 +36,17 @@
   @media (max-width:700px){.wrap{padding:0 28px;}}
 
   /* ---------- NAV ---------- */
-  header{position:fixed;top:0;left:0;right:0;z-index:100;padding:38px 0;mix-blend-mode:difference;}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;padding:26px 0;}
   nav{display:flex;align-items:center;justify-content:space-between;}
-  .brand{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:0.04em;color:#fff;}
-  .nav-links{display:flex;gap:48px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#fff;}
-  .nav-links a{opacity:0.75;transition:opacity .4s var(--ease);}
-  .nav-links a:hover{opacity:1;}
+  .brand{display:flex;align-items:center;}
+  .brand img{height:44px;width:auto;display:block;transition:opacity .35s var(--ease);}
+  .brand:hover img{opacity:0.8;}
+  .nav-links{display:flex;gap:48px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-soft);}
+  .nav-links a{opacity:1;transition:color .4s var(--ease);}
+  .nav-links a:hover{color:var(--teal-deep);}
+  
   .nav-toggle{display:none;flex-direction:column;gap:5px;}
-  .nav-toggle span{width:22px;height:1px;background:#fff;}
+  .nav-toggle span{width:22px;height:1px;background:var(--charcoal);}
   @media (max-width:760px){.nav-links{display:none;} .nav-toggle{display:flex;}}
 
   /* ---------- HERO ---------- */
@@ -235,7 +240,7 @@
 
 <header>
   <nav class="wrap">
-    <a href="index.html" class="brand">MJS</a>
+    <a href="index.html" class="brand"><img src="mjs-logo.png" alt="MJS Gyprock &amp; Plastering"></a>
     <div class="nav-links">
       <a href="index.html#about">About</a>
       <a href="index.html#work">Work</a>
