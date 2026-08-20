@@ -180,22 +180,18 @@
   }
 
   /* ---------- WORK (few, large) ---------- */
-  .work-item{margin-bottom:220px;position:relative;padding-top:60px;}
+  .work-item{margin-bottom:130px;position:relative;padding-top:50px;}
   .work-item::before{
     content:'';position:absolute;top:0;left:0;width:34px;height:1px;background:var(--teal);
   }
   .work-item:last-child{margin-bottom:0;}
   .work-photo{
-    width:100%;aspect-ratio:16/9;
-    background:
-      radial-gradient(120% 90% at 75% 10%, rgba(255,255,255,0.4), transparent 55%),
-      linear-gradient(155deg,#E4DECE 0%,#D2C7B0 55%,#B7AC95 100%);
+    width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;
   }
-  .work-photo.alt{
-    background:
-      radial-gradient(120% 90% at 20% 90%, rgba(255,255,255,0.4), transparent 55%),
-      linear-gradient(155deg,#EAE4D8 0%,#D8CFBC 55%,#C0B49B 100%);
-  }
+  .work-photo.wd{background-image:url('work-waterdamage.jpg');}
+  .work-photo.bw{background-image:url('work-brickwall.jpg');}
+  .work-photo.cl{background-image:url('work-ceiling.jpg');}
+  .work-photo.nb{background-image:url('work-newbuild.jpg');}
   .work-caption{display:flex;justify-content:space-between;margin-top:28px;flex-wrap:wrap;gap:10px;}
   .work-caption h3{font-size:26px;font-weight:400;}
   .work-caption span{font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--charcoal-soft);align-self:center;}
@@ -292,17 +288,31 @@
 <section id="work">
   <div class="wrap">
     <div class="work-item reveal">
-      <div class="work-photo"></div>
+      <div class="work-photo wd"></div>
       <div class="work-caption">
-        <h3>Old Bar Residence</h3>
-        <span>Full Renovation</span>
+        <h3>Kitchen Water Damage Repair</h3>
+        <span>Ceiling Patch &amp; Finish</span>
       </div>
     </div>
     <div class="work-item reveal">
-      <div class="work-photo alt"></div>
+      <div class="work-photo bw"></div>
       <div class="work-caption">
-        <h3>Taree New Build</h3>
-        <span>Set &amp; Skim</span>
+        <h3>Internal Brick Wall</h3>
+        <span>Plastered &amp; Finished</span>
+      </div>
+    </div>
+    <div class="work-item reveal">
+      <div class="work-photo cl"></div>
+      <div class="work-caption">
+        <h3>Garage Ceiling</h3>
+        <span>Full Re-Plaster</span>
+      </div>
+    </div>
+    <div class="work-item reveal">
+      <div class="work-photo nb"></div>
+      <div class="work-caption">
+        <h3>New Build Home</h3>
+        <span>Stop &amp; Set</span>
       </div>
     </div>
   </div>

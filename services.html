@@ -213,12 +213,10 @@
     .svc-item:nth-child(even) .svc-photo{order:0;}
   }
   .svc-photo{aspect-ratio:4/5;position:relative;overflow:hidden;}
-  .svc-photo .ph{
-    position:absolute;inset:0;
-    background:radial-gradient(120% 90% at 25% 15%, rgba(255,255,255,0.5), transparent 55%), linear-gradient(160deg,#E7E0D2,#CFC5B2 60%,#BFB39D);
-  }
-  .svc-photo.alt .ph{background:radial-gradient(120% 90% at 75% 85%, rgba(255,255,255,0.5), transparent 55%), linear-gradient(160deg,#DCD3C0,#C4B89F 60%,#AB9E82);}
-  .svc-photo.alt2 .ph{background:radial-gradient(120% 90% at 50% 10%, rgba(255,255,255,0.5), transparent 55%), linear-gradient(160deg,#E2DACB,#C9BEA6 60%,#B0A386);}
+  .svc-photo .ph{position:absolute;inset:0;background-size:cover;background-position:center;}
+  .svc-photo.pr .ph{background-image:url('svc-patchrepair.jpg');}
+  .svc-photo.rn .ph{background-image:url('svc-renovation.jpg');}
+  .svc-photo.nb .ph{background-image:url('svc-newbuild.jpg');}
   .svc-copy .num{display:block;font-size:12px;letter-spacing:0.1em;color:var(--teal-deep);text-transform:uppercase;margin-bottom:20px;}
   .svc-copy h2{font-size:clamp(30px,4vw,46px);margin-bottom:20px;line-height:1.08;}
   .svc-copy p{color:var(--charcoal-soft);font-size:16px;max-width:440px;}
@@ -289,7 +287,7 @@
   <div class="wrap">
 
     <div class="svc-item reveal">
-      <div class="svc-photo"><div class="ph"></div></div>
+      <div class="svc-photo pr"><div class="ph"></div></div>
       <div class="svc-copy">
         <span class="num">01</span>
         <h2>Patch &amp; Repair</h2>
@@ -298,7 +296,7 @@
     </div>
 
     <div class="svc-item reveal">
-      <div class="svc-photo alt"><div class="ph"></div></div>
+      <div class="svc-photo rn"><div class="ph"></div></div>
       <div class="svc-copy">
         <span class="num">02</span>
         <h2>Renovations</h2>
@@ -307,7 +305,7 @@
     </div>
 
     <div class="svc-item reveal">
-      <div class="svc-photo alt2"><div class="ph"></div></div>
+      <div class="svc-photo nb"><div class="ph"></div></div>
       <div class="svc-copy">
         <span class="num">03</span>
         <h2>New Builds</h2>
