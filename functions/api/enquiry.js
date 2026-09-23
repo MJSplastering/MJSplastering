@@ -14,6 +14,12 @@ const MAX_PHOTOS = 5;
 const MAX_EACH = 10 * 1024 * 1024;
 const MAX_TOTAL = 20 * 1024 * 1024;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'image/gif'];
+// Photos plus text fields and multipart overhead; anything declaring more is rejected before parsing.
+const MAX_BODY = MAX_TOTAL + 1024 * 1024;
+const TURNSTILE_TIMEOUT_MS = 10000;
+const RESEND_TIMEOUT_MS = 25000;
+// Cloudflare's documented always-pass test secret; its responses carry a placeholder hostname.
+const TURNSTILE_TEST_SECRET = '1x0000000000000000000000000000000AA';
 
 const LIMITS = { name: 100, phone: 40, email: 200, suburb: 100, job: 300, details: 3000 };
 
@@ -27,6 +33,9 @@ export async function onRequestPost({ request, env }) {
     const contentType = request.headers.get('content-type') || '';
     if (!contentType.includes('multipart/form-data')) return reply(false, 400);
 
+    const declaredLength = Number(request.headers.get('content-length'));
+    if (declaredLength > MAX_BODY) return reply(false, 413);
+
     const form = await request.formData();
 
     // Honeypot: real people never fill this in. Pretend it worked.
@@ -35,7 +44,8 @@ export async function onRequestPost({ request, env }) {
     const verified = await verifyTurnstile(
       form.get('cf-turnstile-response'),
       env.TURNSTILE_SECRET_KEY,
-      request.headers.get('CF-Connecting-IP')
+      request.headers.get('CF-Connecting-IP'),
+      new URL(request.url).hostname
     );
     if (!verified) return reply(false, 400);
 
@@ -54,9 +64,11 @@ export async function onRequestPost({ request, env }) {
       if (!ALLOWED_TYPES.includes(file.type) || file.size > MAX_EACH) return reply(false, 400);
       total += file.size;
       if (total > MAX_TOTAL) return reply(false, 400);
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      if (!looksLikeImage(bytes)) return reply(false, 400);
       attachments.push({
         filename: safeFilename(file.name, i, file.type),
-        content: toBase64(await file.arrayBuffer())
+        content: toBase64(bytes)
       });
     }
 
@@ -96,7 +108,8 @@ export async function onRequestPost({ request, env }) {
         'Authorization': 'Bearer ' + env.RESEND_API_KEY,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: timeoutSignal(RESEND_TIMEOUT_MS)
     });
 
     if (!res.ok) {
@@ -138,8 +151,27 @@ function safeFilename(name, index, type) {
   return (base || 'photo-' + (index + 1)) + '.' + ext;
 }
 
-function toBase64(buffer) {
-  const bytes = new Uint8Array(buffer);
+// Checks the file's leading bytes, so a renamed non-image can't be sent as a photo.
+function looksLikeImage(b) {
+  if (b.length < 12) return false;
+  const ascii = (start, end) => String.fromCharCode.apply(null, b.subarray(start, end));
+  if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return true;                  // JPEG
+  if (b[0] === 0x89 && ascii(1, 4) === 'PNG') return true;                           // PNG
+  if (ascii(0, 4) === 'GIF8') return true;                                           // GIF
+  if (ascii(0, 4) === 'RIFF' && ascii(8, 12) === 'WEBP') return true;                // WebP
+  if (ascii(4, 8) === 'ftyp') return true;                                           // HEIC/HEIF
+  return false;
+}
+
+function timeoutSignal(ms) {
+  return typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function'
+    ? AbortSignal.timeout(ms)
+    : undefined;
+}
+
+// Uses the runtime's native encoder when available (much cheaper on CPU), otherwise a chunked fallback.
+function toBase64(bytes) {
+  if (typeof bytes.toBase64 === 'function') return bytes.toBase64();
   let binary = '';
   const chunk = 0x8000;
   for (let i = 0; i < bytes.length; i += chunk) {
@@ -148,7 +180,7 @@ function toBase64(buffer) {
   return btoa(binary);
 }
 
-async function verifyTurnstile(token, secret, ip) {
+async function verifyTurnstile(token, secret, ip, expectedHostname) {
   if (typeof token !== 'string' || !token) return false;
   const params = new FormData();
   params.append('secret', secret);
@@ -157,10 +189,17 @@ async function verifyTurnstile(token, secret, ip) {
   try {
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
-      body: params
+      body: params,
+      signal: timeoutSignal(TURNSTILE_TIMEOUT_MS)
     });
     const data = await res.json();
-    return data.success === true;
+    if (data.success !== true) return false;
+    // The token must have been issued on this site (skipped only for Cloudflare's test secret).
+    if (secret !== TURNSTILE_TEST_SECRET && data.hostname !== expectedHostname) {
+      console.error('enquiry: Turnstile hostname mismatch');
+      return false;
+    }
+    return true;
   } catch (err) {
     console.error('enquiry: Turnstile verification failed', err && err.message);
     return false;

@@ -72,7 +72,7 @@
   .field input[type="text"],.field input[type="tel"],.field input[type="email"],.field textarea{
     width:100%;min-height:50px;padding:12px 14px;
     font:inherit;font-size:16px;color:var(--ink);background:#fff;
-    border:1.5px solid #B9B0A0;border-radius:var(--radius);
+    border:1.5px solid #948B7C;border-radius:var(--radius);
   }
   .field textarea{min-height:120px;resize:vertical;}
   .field input:focus,.field textarea:focus{outline:3px solid var(--teal);outline-offset:1px;border-color:var(--teal-deep);}
@@ -84,7 +84,7 @@
 
   .file-input{
     display:block;width:100%;padding:14px;font:inherit;font-size:16px;
-    background:#fff;border:1.5px dashed #B9B0A0;border-radius:var(--radius);cursor:pointer;
+    background:#fff;border:1.5px dashed #948B7C;border-radius:var(--radius);cursor:pointer;
   }
   .file-input::file-selector-button{
     font:inherit;font-weight:600;margin-right:12px;padding:10px 14px;min-height:44px;
@@ -147,7 +147,6 @@
 
 <section class="page-intro section--dark">
   <div class="wrap">
-    <span class="meta">Contact</span>
     <h1 class="display-md">Get a <span class="accent">quote</span></h1>
     <p class="lede">Not sure what you need? Send through a few photos and tell Myles what's going on.</p>
     <p class="muted">Quotes are free and written. Prefer to talk? Call or text Myles on <a class="text-link" href="tel:0490790564" data-location="contact">0490 790 564</a>.</p>
@@ -394,11 +393,10 @@
       data.delete('photos');
       photos.forEach(function (p) { data.append('photos', p, p.name); });
 
-      return fetch(form.getAttribute('action'), {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
+      var options = { method: 'POST', body: data, headers: { 'Accept': 'application/json' } };
+      // Give up after a minute so the button never stays on "Sending…" indefinitely.
+      if (window.AbortSignal && typeof AbortSignal.timeout === 'function') options.signal = AbortSignal.timeout(60000);
+      return fetch(form.getAttribute('action'), options);
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
         if (!res.ok || !body.ok) throw new Error('send failed');

@@ -31,7 +31,7 @@
   --ease:cubic-bezier(.2,.7,.2,1);
 
   /* distance from the content edge to the viewport edge, for photos that bleed off the page */
-  --bleed:calc(max(0px, (100vw - var(--wrap)) / 2) + var(--gutter));
+  --bleed:max(var(--gutter), (100vw - var(--wrap)) / 2);
 }
 @media (min-width:640px){ :root{ --gutter:32px; --col-gap:20px; --section:96px; } }
 @media (min-width:960px){ :root{ --gutter:48px; --col-gap:24px; --section:136px; --header-h:80px; } }
