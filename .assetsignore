@@ -1,0 +1,14 @@
+# Files that must never be published as static assets.
+.git
+.github
+.wrangler
+.dev.vars*
+.env*
+node_modules
+functions
+worker
+wrangler.jsonc
+wrangler.json
+wrangler.toml
+.assetsignore
+.DS_Store
