@@ -63,7 +63,7 @@
   .svc-grid{display:grid;gap:40px;}
   .svc-list{list-style:none;margin-top:18px;border-top:1px solid var(--line);}
   .svc-list li{padding:14px 0;border-bottom:1px solid var(--line);font-size:19px;font-weight:600;}
-  .svc-grid h2{margin-bottom:6px;}
+  .svc-grid h2{margin-bottom:12px;}
   .svc-more{margin-top:20px;}
   .quotes h2{margin-bottom:14px;}
   @media (min-width:960px){ .svc-grid{grid-template-columns:5fr 7fr;gap:72px;align-items:start;} }
@@ -74,46 +74,49 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="/" aria-label="MJS Gyprock &amp; Plastering, home"><img src="/mjs-logo-160.png" width="44" height="44" alt="MJS Gyprock &amp; Plastering"></a>
+    <a class="brand" href="/" aria-label="MJS Gyprock &amp; Plastering, home"><img src="/mjs-logo-160.png" width="44" height="44" alt=""><span class="brand-word" aria-hidden="true">Gyprock &amp;<br>Plastering</span></a>
     <nav class="nav-desktop" aria-label="Main">
       <a href="/#work">Work</a>
       <a href="/#about">About</a>
       <a href="/services" aria-current="page">Services</a>
     </nav>
     <div class="header-actions">
-      <a class="header-phone" href="tel:0490790564" data-location="header">0490 790 564</a>
+      <a class="header-phone" href="tel:0490790564" data-location="header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>0490 790 564</a>
       <a class="btn btn-primary btn-sm header-quote" href="/contact#enquiry" data-cta="get_quote" data-location="header">Get a quote</a>
-      <a class="header-call" href="tel:0490790564" data-location="mobile_header">Call</a>
+      <a class="header-call" href="tel:0490790564" data-location="mobile_header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
         <span class="sr-only">Menu</span>
-        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
     </div>
   </div>
-  <nav id="mobile-menu" class="mobile-menu" aria-label="Main" hidden>
-    <div class="wrap">
-      <a href="/#work">Work</a>
-      <a href="/#about">About</a>
-      <a href="/services" aria-current="page">Services</a>
-      <a class="btn btn-primary" href="/contact#enquiry" data-cta="get_quote" data-location="mobile_header">Get a quote</a>
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Main">
+    <div>
+      <div class="wrap">
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/services" aria-current="page">Services</a>
+        <a class="btn btn-primary" href="/contact#enquiry" data-cta="get_quote" data-location="mobile_header">Get a quote <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
     </div>
   </nav>
 </header>
 
 <main id="main">
 
-<section class="page-intro">
+<section class="page-intro section--dark">
   <div class="wrap">
-    <h1>Gyprock &amp; plastering</h1>
+    <span class="meta">Services</span>
+    <h1 class="display-md">Gyprock &amp;<br><span class="accent">plastering</span></h1>
     <p class="lede">MJS Gyprock &amp; Plastering is Myles' local plastering business, based in Old Bar and working across the Mid North Coast NSW.</p>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section--alt">
   <div class="wrap svc-grid">
     <div>
-      <h2>Recent jobs</h2>
+      <h2 class="h-section">Recent jobs</h2>
       <p class="muted">A few of the jobs MJS has done recently:</p>
       <ul class="svc-list">
         <li>Water damage, kitchen ceiling</li>
@@ -133,19 +136,20 @@
 
 <section class="section quotes">
   <div class="wrap">
-    <h2>Quotes</h2>
+    <h2 class="h-section">Quotes</h2>
     <p class="lede">Quotes are free and written.</p>
     <p>For some jobs, photos are enough to understand what's needed. For others, Myles will come out and have a look. It depends on the job.</p>
   </div>
 </section>
 
-<section class="section closing">
+<section class="section section--dark closing" aria-labelledby="closing-heading">
   <div class="wrap">
-    <h2>Got a job in mind?</h2>
+    <span class="meta">Get a quote</span>
+    <h2 class="display-md" id="closing-heading">Got a job<br><span class="accent">in mind?</span></h2>
     <p class="lede">Send through a few details and some photos, or call or text Myles to talk it through.</p>
     <div class="btn-row">
-      <a class="btn btn-primary" href="/contact#enquiry" data-cta="get_quote" data-location="closing_cta">Get a quote</a>
-      <a class="btn btn-secondary" href="tel:0490790564" data-cta="call_myles" data-location="closing_cta">Call Myles <span class="btn-note">0490 790 564</span></a>
+      <a class="btn btn-primary" href="/contact#enquiry" data-cta="get_quote" data-location="closing_cta">Get a quote <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="tel:0490790564" data-cta="call_myles" data-location="closing_cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call Myles <span class="btn-note">0490 790 564</span></a>
     </div>
   </div>
 </section>
@@ -157,8 +161,8 @@
     <div class="footer-grid">
       <div class="footer-col">
         <div class="footer-brand">
-          <img src="/mjs-logo-160.png" width="48" height="48" alt="" loading="lazy">
-          <div><strong>MJS Gyprock &amp; Plastering</strong>Based in Old Bar, NSW</div>
+          <img src="/mjs-logo-160.png" width="52" height="52" alt="" loading="lazy">
+          <div><strong>MJS Gyprock &amp; Plastering</strong><span>Based in Old Bar, NSW</span></div>
         </div>
       </div>
       <div class="footer-col">

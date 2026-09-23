@@ -7,14 +7,14 @@
 
   function closeMenu() {
     if (!toggle || !menu) return;
-    menu.hidden = true;
+    menu.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
   }
 
   if (toggle && menu) {
     toggle.addEventListener('click', function () {
       var open = toggle.getAttribute('aria-expanded') === 'true';
-      menu.hidden = open;
+      menu.classList.toggle('is-open', !open);
       toggle.setAttribute('aria-expanded', String(!open));
     });
     menu.addEventListener('click', function (e) {
@@ -29,6 +29,42 @@
     window.matchMedia('(min-width: 960px)').addEventListener('change', function (mq) {
       if (mq.matches) closeMenu();
     });
+  }
+
+  // ---------- One-time photo reveal (progressive enhancement) ----------
+  // Only photos that start below the fold are dimmed, and only when motion is allowed.
+  // Without JavaScript, or with reduced motion, every photo simply shows as normal.
+  // A photo is revealed once its top has reached the lower part of the viewport, including
+  // when the visitor has already scrolled or jumped past it, so nothing stays dimmed.
+  var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pending = [];
+  if (motionOK) {
+    document.querySelectorAll('[data-reveal] img').forEach(function (img) {
+      if (img.getBoundingClientRect().top > window.innerHeight) {
+        img.classList.add('pre-reveal');
+        pending.push(img);
+      }
+    });
+  }
+
+  if (pending.length) {
+    var sweep = function () {
+      var limit = window.innerHeight * 0.92;
+      pending = pending.filter(function (img) {
+        if (img.getBoundingClientRect().top >= limit) return true;
+        img.classList.add('revealed');
+        void img.offsetWidth; // commit the dimmed state so the change below transitions
+        img.classList.remove('pre-reveal');
+        return false;
+      });
+      if (!pending.length) {
+        window.removeEventListener('scroll', sweep);
+        window.removeEventListener('resize', sweep);
+      }
+    };
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('resize', sweep, { passive: true });
+    sweep();
   }
 
   // ---------- GA4 conversion click tracking ----------
