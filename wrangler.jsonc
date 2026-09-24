@@ -20,5 +20,14 @@
   // are set in the Cloudflare dashboard. keep_vars stops deploys from removing dashboard variables.
   "keep_vars": true,
 
+  // Worker Previews (wrangler preview) do not inherit production settings.
+  // Preview secrets are set per Preview: wrangler preview secret put <KEY> --name <preview>
+  "previews": {
+    "vars": {
+      "ENQUIRY_FROM": "MJS Website <enquiries@mjs-plastering.com.au>",
+      "ENQUIRY_TO": "info@mjs-plastering.com.au"
+    }
+  },
+
   "observability": { "enabled": true }
 }

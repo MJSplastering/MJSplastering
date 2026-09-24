@@ -12,3 +12,6 @@ wrangler.json
 wrangler.toml
 .assetsignore
 .DS_Store
+.gitignore
+package.json
+package-lock.json

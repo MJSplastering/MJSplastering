@@ -1,0 +1,11 @@
+{
+  "name": "mjsplastering",
+  "private": true,
+  "description": "MJS Gyprock & Plastering website: static assets plus a Cloudflare Worker enquiry API",
+  "scripts": {
+    "preview": "wrangler preview"
+  },
+  "devDependencies": {
+    "wrangler": "4.137.0"
+  }
+}
