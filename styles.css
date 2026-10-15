@@ -118,6 +118,10 @@ h1,h2,h3{font-weight:800;line-height:1.05;letter-spacing:-0.02em;}
 .text-link{color:var(--teal-deep);font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;}
 .text-link:hover{color:var(--teal-darker);text-decoration-thickness:2px;}
 .section--dark .text-link{color:var(--teal-light);}
+/* secondary "text instead" prompt under call-to-action buttons */
+.text-alt{margin-top:16px;font-size:15px;color:var(--ink-soft);max-width:none;}
+.text-alt a{display:inline-flex;align-items:center;min-height:44px;}
+.section--dark .text-alt{color:var(--on-dark-soft);}
 .arrow-link{
   display:inline-flex;align-items:center;gap:10px;min-height:44px;
   font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
