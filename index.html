@@ -65,15 +65,6 @@
 </script>
 
 <link rel="preload" as="image" href="/svc-newbuild.jpg" imagesrcset="/svc-newbuild-800.jpg 800w, /svc-newbuild.jpg 1400w" imagesizes="(min-width: 960px) 80vw, 100vw">
-<script>
-  // Hero animation variants for comparison: ?hero=sweep (default) | push | trowel
-  (function () {
-    var m = /[?&]hero=(sweep|push|trowel)\b/.exec(location.search);
-    var fx = { sweep: 'sweep', push: 'pushsweep', trowel: 'trowel' }[m ? m[1] : 'sweep'];
-    document.documentElement.setAttribute('data-hero-fx', fx);
-    if (m) document.documentElement.setAttribute('data-hero-switcher', m[1]);
-  })();
-</script>
 <link rel="stylesheet" href="/styles.css">
 <style>
   /* ---------- Hero ---------- */
@@ -85,60 +76,12 @@
     content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(180deg, rgba(28,27,25,0) 50%, rgba(28,27,25,.72) 74%, var(--char) 94%);
   }
-  /* ---------- Hero animation (variants: sweep / pushsweep / trowel) ---------- */
+  /* ---------- Hero animation: very slow push-in toward the skylight ---------- */
   .hero-media{overflow:hidden;background:var(--char);}
-  .hero-media::after{inset:-1px;}  /* covers the zoomed photo's edge during the push-in */
-  .hero-light{
-    position:absolute;top:-10%;bottom:-10%;left:-60%;right:-60%;pointer-events:none;opacity:0;
-    --angle:100deg;
-    background:linear-gradient(var(--angle),
-      rgba(255,238,210,0) 34%, rgba(255,238,210,.10) 42%, rgba(255,246,230,.26) 48%,
-      rgba(255,250,240,.32) 50%, rgba(255,246,230,.26) 52%, rgba(255,238,210,.10) 58%,
-      rgba(255,238,210,0) 66%);
-    mix-blend-mode:screen;transform:translateX(-45%);will-change:transform,opacity;
-  }
-  /* 2. raking light: a slow band of light drifts across the room, then rests */
-  html[data-hero-fx="sweep"] .hero-light,
-  html[data-hero-fx="pushsweep"] .hero-light{animation:heroSweep 14s ease-in-out .8s infinite;}
-  @keyframes heroSweep{
-    0%{transform:translateX(-45%);opacity:0}
-    6%{opacity:1}
-    40%{opacity:1}
-    46%{transform:translateX(45%);opacity:0}
-    100%{transform:translateX(45%);opacity:0}
-  }
-  /* 3. plus a very slow push-in toward the skylight */
-  html[data-hero-fx="pushsweep"] .hero-media img{transform-origin:58% 28%;animation:heroPush 26s ease-in-out infinite alternate;}
+  .hero-media::after{inset:-1px;}  /* covers the zoomed photo's edge */
+  .hero-media img{transform-origin:58% 28%;animation:heroPush 26s ease-in-out infinite alternate;}
   @keyframes heroPush{from{transform:scale(1)}to{transform:scale(1.07)}}
-  /* 4. one-off "trowel stroke" reveal, with the light riding the leading edge */
-  html[data-hero-fx="trowel"] .hero-media img{animation:heroTrowel 1.5s cubic-bezier(.65,0,.25,1) .15s both;}
-  html[data-hero-fx="trowel"] .hero-light{--angle:116deg;animation:heroTrowelEdge 1.5s cubic-bezier(.65,0,.25,1) .15s both;}
-  html[data-hero-fx="trowel"] .hero-title{animation:heroRise .8s cubic-bezier(.2,.7,.2,1) .55s both;}
-  html[data-hero-fx="trowel"] .hero-actions{animation:heroRise .8s cubic-bezier(.2,.7,.2,1) .75s both;}
-  @keyframes heroTrowel{
-    from{clip-path:polygon(0 0,0 0,-25% 100%,-25% 100%)}
-    to{clip-path:polygon(0 0,125% 0,100% 100%,-25% 100%)}
-  }
-  @keyframes heroTrowelEdge{
-    0%{transform:translateX(-48%);opacity:1}
-    85%{opacity:1}
-    100%{transform:translateX(42%);opacity:0}
-  }
-  @keyframes heroRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion: reduce){
-    .hero-light{display:none;}
-    html[data-hero-fx] .hero-media img,html[data-hero-fx] .hero-title,html[data-hero-fx] .hero-actions{animation:none !important;}
-  }
-  /* comparison switcher, only shown when ?hero= is in the address */
-  .hero-switcher{display:none;}
-  html[data-hero-switcher] .hero-switcher{
-    display:flex;gap:6px;position:fixed;left:12px;bottom:12px;z-index:300;padding:6px;border-radius:999px;
-    background:rgba(20,19,18,.88);font-size:13px;font-weight:600;box-shadow:0 4px 18px rgba(0,0,0,.3);
-  }
-  .hero-switcher a{color:#EDE8DE;text-decoration:none;padding:8px 12px;border-radius:999px;min-height:36px;display:inline-flex;align-items:center;}
-  html[data-hero-switcher="sweep"] .hero-switcher [data-v="sweep"],
-  html[data-hero-switcher="push"] .hero-switcher [data-v="push"],
-  html[data-hero-switcher="trowel"] .hero-switcher [data-v="trowel"]{background:var(--teal-deep);}
+  @media (prefers-reduced-motion: reduce){ .hero-media img{animation:none;} }
 
   .hero-title{position:relative;z-index:2;margin-top:-112px;}
   .hero-title .meta{margin-bottom:14px;color:var(--on-dark);}
@@ -407,7 +350,6 @@
   <div class="wrap hero-grid">
     <figure class="hero-media">
       <img src="/svc-newbuild.jpg" srcset="/svc-newbuild-800.jpg 800w, /svc-newbuild.jpg 1400w" sizes="(min-width: 960px) 80vw, 100vw" width="1400" height="787" fetchpriority="high" alt="Plasterboard walls and ceiling around a stairwell and skylight, part-way through an MJS job">
-      <span class="hero-light" aria-hidden="true"></span>
     </figure>
     <div class="hero-title">
       <span class="meta">Old Bar · Mid North Coast NSW</span>
@@ -642,11 +584,6 @@
   </div>
 </footer>
 
-<nav class="hero-switcher" aria-label="Hero animation preview">
-  <a data-v="sweep" href="/?hero=sweep">2 · Light</a>
-  <a data-v="push" href="/?hero=push">3 · Push + light</a>
-  <a data-v="trowel" href="/?hero=trowel">4 · Trowel</a>
-</nav>
 <script src="/site.js" defer></script>
 </body>
 </html>
