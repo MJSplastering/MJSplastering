@@ -373,6 +373,33 @@
     });
   }
 
+  // Building Brain lead tracking: once the enquiry has been sent, record it
+  // with Building Brain too (name, contact details and the job -- never the
+  // photos). Fire-and-forget: it never changes what the customer sees, and
+  // Building Brain sends no extra email (the enquiry email above is the one).
+  function reportToBuildingBrain() {
+    try {
+      if (!window.fetch || !window.crypto || typeof crypto.randomUUID !== 'function') return;
+      var v = function (id) { var el = document.getElementById('f-' + id); return el ? el.value.trim() : ''; };
+      var message = [v('job') && 'Job: ' + v('job'), v('suburb') && 'Suburb: ' + v('suburb'), v('details')].filter(Boolean).join('\n');
+      fetch('https://bb-conversion.jwa7990.workers.dev', {
+        method: 'POST',
+        keepalive: true,
+        // text/plain keeps this a 'simple' request (no CORS preflight); the
+        // endpoint reads the JSON body either way and checks the origin itself.
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: JSON.stringify({
+          client_id: '6890362c-a0bf-4154-9c17-2764ccb24ae1',
+          event_type: 'enquiry_form_submitted',
+          submission_id: crypto.randomUUID(),
+          contact: { name: v('name'), email: v('email'), phone: v('phone') },
+          payload: { message: message },
+          source: 'website_form'
+        })
+      }).catch(function () {});
+    } catch (e) { /* tracking must never affect the form */ }
+  }
+
   function resetTurnstile() {
     if (window.turnstile) {
       try { window.turnstile.reset(); } catch (e) { /* ignore */ }
@@ -410,6 +437,7 @@
         if (!res.ok || !body.ok) throw new Error('send failed');
       });
     }).then(function () {
+      reportToBuildingBrain();
       form.hidden = true;
       success.hidden = false;
       // Counted only once the enquiry has actually been sent (not on button press).
